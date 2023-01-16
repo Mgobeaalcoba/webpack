@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/Mgobeaalcoba/webpack/issues"
   },
-  "homepage": "https://github.com/Mgobeaalcoba/webpack#readme"
+  "homepage": "https://github.com/Mgobeaalcoba/webpack#readme",
+  "dependencies": {
+    "webpack": "^5.75.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  }
 }

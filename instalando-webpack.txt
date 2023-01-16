@@ -1,0 +1,50 @@
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npm install webpack
+
+added 77 packages, and audited 78 packages in 3s
+
+9 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npm install webpack-cli -D
+
+added 40 packages, and audited 118 packages in 7s
+
+15 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npx webpack
+asset main.js 21 bytes [emitted] [minimized] (name: main)
+./src/index.js 45 bytes [built] [code generated]
+
+WARNING in configuration
+The 'mode' option has not been set, webpack will fallback to 'production' for this value.
+Set 'mode' option to 'development' or 'production' to enable defaults for each environment.
+You can also set it to 'none' to disable any default behavior. Learn more: https://webpack.js.org/configuration/mode/
+
+webpack 5.75.0 compiled with 1 warning in 180 ms
+
+// Me arma todo mi modelado de proyecto para trabajar en diseño web
+
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npx webpack --mode development
+asset main.js 1.23 KiB [emitted] (name: main)
+./src/index.js 45 bytes [built] [code generated]
+webpack 5.75.0 compiled successfully in 71 ms
+
+// Visualizo mis archivos en modo dev (con mas detalle)
+
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npx webpack --mode production
+asset main.js 21 bytes [emitted] [minimized] (name: main)
+./src/index.js 45 bytes [built] [code generated]
+webpack 5.75.0 compiled successfully in 194 ms
+
+// Visualizo mis archivos en modo production. Menos info (solo la relevante). Ej: En main solo el console.log("hello")
+
