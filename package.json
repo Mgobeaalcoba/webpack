@@ -1,0 +1,24 @@
+{
+  "name": "curso-webpack",
+  "version": "1.0.0",
+  "description": "Proyecto con lecciones y desafios del curso de Webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mgobeaalcoba/webpack.git"
+  },
+  "keywords": [
+    "webpack",
+    "javascript",
+    "npm"
+  ],
+  "author": "Gobea Alcoba, Mariano <gobeamariano@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mgobeaalcoba/webpack/issues"
+  },
+  "homepage": "https://github.com/Mgobeaalcoba/webpack#readme"
+}
