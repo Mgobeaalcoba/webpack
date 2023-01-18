@@ -1,0 +1,4 @@
+Para configurar webpack tengo que archar un 
+archivo en la raiz de mi proyecto llamado:
+
+webpack.config.js

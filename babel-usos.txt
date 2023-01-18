@@ -1,0 +1,18 @@
+El objetivo de babel es que nuestro codigo
+JavaScript sea apto para todos los navegadores
+
+Codigo en consola para instalar babel: 
+
+npm install babel-loader @babel/core @babel/preset-env @babel/plugin-trans
+form-runtime -D
+
+luego tengo que armar en la raiz de mi proyecto un archivo de config
+llamado ".babelrc"
+
+Luego en webpack.config cargo un module. Dentro del modulo voy a poner
+
+test: /\.m?js$/, --> Expresion regular que significa: "Cualquier archivo cuya extension sea .mjs o .js
+
+Luego excluyo los archivos js o mjs de la carpeta node_modules así:
+
+exclude: /node_modules/,

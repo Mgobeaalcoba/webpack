@@ -1,4 +1,8 @@
-##Node
+### vscode ###
+
+.vscode
+
+### Node ###
 
 node_modules
 
