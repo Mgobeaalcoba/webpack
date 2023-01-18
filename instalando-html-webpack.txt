@@ -1,0 +1,3 @@
+En consola: 
+
+npm install html-webpack-plugin -D

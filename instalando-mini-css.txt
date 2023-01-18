@@ -1,0 +1,7 @@
+En consola: 
+
+npm install mini-css-extract-plugin css-loader -D
+
+luego importo los estylos css en mi archivo index.js de la carpeta utils:
+
+import './styles/main.css';
