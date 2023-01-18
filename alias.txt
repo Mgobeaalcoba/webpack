@@ -1,0 +1,35 @@
+Cuando tenemos que hacer obtener archivos o info de rutas muy complejas: 
+
+Ej: '../../../develop/'
+
+podemos guardar esas rutas complejas en alias con webpack. 
+
+Esto se configura dentro de nuestro archivo webpack.config.js.
+Dentro de la sección resolve y debajo de extensions: así:
+
+    resolve: {
+        extensions: ['.js'],
+        alias: {
+            '@utils': path.resolve(__dirname, 'src/utils/'),
+            '@templates': path.resolve(__dirname, 'src/templates/'),
+            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@images': path.resolve(__dirname, 'src/assets/images/'),
+        }
+    },
+
+Luego con los alias reemplazo mis rutas en mis archivos donde las cite para hacerlas mas amigables a la lectura.
+
+Algo así: 
+
+En index.js quedarían así los imports: 
+
+import Template from '@templates/Template.js';
+import '@styles/main.css';
+import '@styles/vars.styl'
+
+En Template.js quedarían así: 
+
+import getData from '@utils/getData.js';
+import github from '@images/github.png';
+import twitter from '@images/twitter.png';
+import linkedin from '@images/R.png';

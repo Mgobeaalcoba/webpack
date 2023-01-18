@@ -1,0 +1,6 @@
+No necesitamos nuevos modulos de NPM para esto. Sino que debemos sumar una config de rules a esto: 
+
+            {
+                test: /\.png/,
+                type: 'asset/resource'
+            }

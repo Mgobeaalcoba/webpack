@@ -1,0 +1,11 @@
+Si necesitamos mover archivos (Por ejemplo imagenes) de nuestra carpeta src a nuestra carpeta de distribution entonces podemos trabajar con:
+
+C:\Users\mgobea\Documents\develop\JavaScript\js-portfolio(main -> origin) (js-portfolio@1.0.0)
+λ npm install copy-webpack-plugin -D
+
+added 11 packages, and audited 370 packages in 5s
+
+43 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

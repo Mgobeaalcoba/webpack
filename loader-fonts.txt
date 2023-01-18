@@ -1,0 +1,27 @@
+Desde la pagina: 
+
+https://gwfh.mranftl.com/fonts/ubuntu?subsets=latin
+
+Podemos obtener las fuentes que deseemos en el formato woff o woff2 que es el que necesitamos para trabajar en JS con un loader fonts
+
+Codigo que se carga en el encabezado de styles/main.css
+
+@font-face {
+	font-family: 'Ubuntu';
+	src: url('../assets/fonts/ubuntu-regular.woff2') format('woff2'),
+		url('../assets/fonts/ubuntu-regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+Luego de ello debemos installar url-loader y file-loader así: 
+
+C:\Users\mgobea\Documents\develop\JavaScript\js-portfolio(main -> origin) (js-portfolio@1.0.0)
+λ npm install url-loader file-loader -D
+
+added 5 packages, and audited 375 packages in 3s
+
+45 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

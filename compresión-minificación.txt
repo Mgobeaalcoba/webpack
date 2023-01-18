@@ -1,0 +1,38 @@
+Uno de los motivos mas importantes por los que se usa webpack es para comprimir y/o minificar nuestro proyecto. 
+
+Veamos como se hace esto con webpack: 
+
+Primero en consola: 
+
+C:\Users\mgobea\Documents\develop\JavaScript\js-portfolio(main -> origin) (js-portfolio@1.0.0)
+λ npm install css-minimizer-webpack-plugin terser-webpack-plugin -D
+npm WARN deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+
+added 72 packages, and audited 447 packages in 6s
+
+51 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Finalmente agregamos debajo de la sección de plugins una nueva sección en nuestro archivo webpack.config.js llamada optimization: 
+
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin(),
+        ]
+    }
+
+Ya no solo vamos a tener el main.js en dist sino que ahora tambien tendremos el main.hash.js en nuestra dist 
+
+Ej: main.95c18751b8e4f826455f.js
+
+¿Por qué es importante usar Hashes en nuestros archivos?
+Los recursos que se guardan en memoria cache suceden cuando el navegador entra a un sitio por primera vez detecta los recursos y los guarda. Por ello la siguiente vez sera mucho más rápido porque estarán en memoria
+La desventaja esta cuando sacamos una nueva versión, porque tendrán un mismo nombre evitando que se descargue los nuevos cambios, por lo tanto, el usuario no recibirá los nuevos cambios
+Para que no haya conflictos con la cache una vez que tengamos nuestro proyecto en producción es importante darles un hash para cada nueva versión
+
+Cada vez que pida un npm run build me va a generar un nuevo archivo con un hash nuevo. Hay que tener cuidado con esto. 
