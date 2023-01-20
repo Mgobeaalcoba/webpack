@@ -1,0 +1,33 @@
+Es un modo de webpack que nos permite compilar de forma automatica nuestro proyecto luego de hacerle cambios al mismo.
+
+Veamos: 
+
+1- En nuestro archivo de webpack.config.dev.js vamos a agregar debajo del mode: 'development' lo siguiente:
+
+watch: true,
+
+2- Ejecuto el npm run dev para activar el modo dev y la consola quedará trabajando para que cualquier cambio automaticamente sea compilado. 
+
+Para matar la consola posteriormente es Ctrl + C
+
+Si ya no deseo usarlo paso el watch a false en mi webpack.config.dev.js así:
+
+watch: false,
+
+------------------------
+
+Otra alternativa para encenderlo es: 
+
+Generar un nuevo script en package.json al que por ejemplo podemos llamar: 
+
+"build:watch": "webpack --watch --config webpack.config.dev.js"
+
+Si le paso la config de dev debo sacarle, o comentar previamente, el 
+
+watch: true, o
+
+watch: false, 
+
+para no pisar la ejecución de mi script.
+
+Y el resultado será el mismo, es decir la terminal queda compilando en tiempo real las modificaciones que se hagan en nuestro proyecto. 

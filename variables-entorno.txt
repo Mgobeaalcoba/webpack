@@ -1,0 +1,69 @@
+webpack nos permite trabajar con variables de entorno. 
+
+Es decir, variables que no queremos disponibilizar en nuestro codigo. 
+
+¿Como? 
+
+Consola: 
+
+C:\Users\mgobea\Documents\develop\JavaScript\js-portfolio(main -> origin) (js-portfolio@1.0.0)
+λ npm install dotenv-webpack -D
+
+added 3 packages, and audited 450 packages in 874ms
+
+51 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+VSC: 
+
+1- Creo un archivo llamado '.env' que es donde van a vivir nuestras variables de entorno. 
+2- El archivo .env no se sube al repositorio. Por lo que debe agregarse al .gitignore
+3- En cualquier equipo de trabajo uno debe solicitar las variables de entorno al lider de equipo o a algun miembro para poder utilizarlas. 
+4- Hay que agregar un file '.env-example' para que quien quiera trabajar con el proyecto sepa que tipo de variables de entorno debe solicitar. 
+5- Luego vamos a ir a nuestro archivo webpack.config para configurar esta herramienta. 
+
+const Dotenv = require('dotenv-webpack');
+
+Y luego agrego un plugin con mi nueva const: 
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src", "assets/images"),
+                    to: "assets/images"
+                }
+            ]
+        }),
+        new Dotenv(),
+    ],
+
+6- Luego en mi archivo getData.js voy a cambiar la dirección de mi API por mi variable de entorno para de esa forma no hacer publico el dominio de mi API así: 
+
+const API = process.env.API;
+
+Esto sería una tarea de un DevOps pero un fullstack JS debe conocerla también. 
+
+7- Luego compilo mi codigo con: 
+
+npm run build ó
+
+npm run dev 
+
+Siempre que antes haya guardado los codigos del entorno de desarrollo y producción como scripts en mi package.json así: 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development"
+  },

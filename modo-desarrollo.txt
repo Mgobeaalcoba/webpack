@@ -1,0 +1,54 @@
+Así como tengo mi archivo de webpack.config.js en donde guardo 
+toda mi configuración para el modo producción o en general. 
+
+Puedo ser mas especifico y declarar mi config de desarrollo en
+un archivo de config especifico al que voy a llamar: 
+
+webpack.config.dev.js
+
+¿Que cosas no necesito en el modo desarrollo? 
+
+1- optimizar: por lo que voy a eliminar la sección de "optimization" de mi file de config para producción:
+
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin(),
+        ]
+    }
+
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+2- Luego dentro de mi module.exports = y debajo del entry y el output voy a agregar un mode: 'development' para especificar que es una config de desarrollo: 
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contenthash].js',
+        assetModuleFilename: 'assets/images/[hash][ext][query]'
+    },
+    mode: 'development',
+    resolve: {
+
+3- Luego voy a modificar mi script en el package.json para correr la compilación en modo dev de la siguiente forma: 
+
+Tenía esto:
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development"
+  },
+
+Voy a tener esto: 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "dev": "webpack --config webpack.config.dev.js"
+  },
+
+

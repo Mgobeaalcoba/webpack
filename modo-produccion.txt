@@ -1,0 +1,79 @@
+Tener una config particular para nuestro modo de producción nos va a ser realmente muy util para entre otras cosas:
+
+1- Limpiar nuestras versiones de dist anteriores, es decir, de compliaciones anteriores y que ya no deseamos tener. 
+
+Para esto debemos instalar un plugin que se llama: 
+
+clean-webpack 
+
+en nuestra terminal así: 
+
+C:\Users\mgobea\Documents\develop\JavaScript\js-portfolio(main -> origin) (js-portfolio@1.0.0)
+λ npm install clean-webpack-plugin -D
+
+added 18 packages, and audited 468 packages in 5s
+
+51 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+Luego vamos a editar nuestro archivo de config de webpack pero solo el general, es decir, solo el que se corre en el modo producción. No queremos limpiar las versiones anteriores en el modo desarrollo.
+
+Vamos a trabajar entonces en webpack.config.js: 
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); --> Asigno mi plugin a una variable
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src", "assets/images"),
+                    to: "assets/images"
+                }
+            ]
+        }),
+        new Dotenv(),
+        new CleanWebpackPlugin(),
+    ],  --> Instanceo mi plugin en la sección de plugins.
+
+Duda:
+
+¿Por qué las constantes que se han declarado han sido sin { } y esta ultima sí tiene las { }?
+
+Las llaves son una manera alternativa de acceder a la propiedades de un objeto. Estas llaves que se emplean al desestructurar un objeto, sirven para asignar los valores de una propiedad del objeto a otra variable en especifico.
+
+https://es.stackoverflow.com/questions/381537/para-qué-sirven-las-llaves-al-definir-constantes-en-javascript
+
+En este caso se debe definir de esta manera ya que el desarrollador del plugin así lo define. Para saber como se usa un plugin ingresa a npm y te dara el resumen de su uso. NO es necesario aprender de memoria los códigos 😉
+
+https://www.npmjs.com/package/clean-webpack-plugin
+
+Finalmente vamos a editar webpack.config.js agregando el 
+
+mode: 'production'
+
+Y luego editamos el script de build cambiando el :
+
+"build": "webpack --mode production"
+
+por:
+
+"build": "webpack --config webpack.config.js"
+
+Finalmente al ejecutar 
+
+npm run build 
+
+vamos a ver que en dist solo queda la ultima versión de mis archivos css, js y html
+
+
+
