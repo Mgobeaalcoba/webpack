@@ -1,0 +1,58 @@
+Vamoss a aprender a deployar con netlify que es un sitio para desplegar proyectos de una forma muy amigable:
+
+Permite conectar con github, gitlab, bitbucket, etc.
+
+1- Tener cuenta en netlify
+2- Conectar mi cuenta con mi github
+3- Informarle a netlify que repo de mi github es el que quiero deployar.
+4- Luego veremos como configurar ese deploy de forma automatica. 
+
+Vamos a tener que instalar las librerías que tengamos a nivel general y no de proyecto en nuestro proyecto tambien para que netlify pueda instalarlas y correrlas antes de deployar
+
+Luego vamos a tener un problema con nuestras variables de entorno. Ya que no las pasamos al portafolio para cuidar nuestros datos. Entonces debemos hacer algunos pasos adicionales en nuestro proyecto: 
+
+1- Armo una carpeta de scripts en la raiz
+2- creamos create-env.js que va a correr sobre node.js
+
+El archivo va crear un archivo .env en nuestro servidor con la info del mismo sin hacerla publica. Su contenido es: 
+
+
+const fs = require('fs');
+
+fs.writeFileSync('./.env', `API=${process.env.API}\n`);
+
+Posteriormente en netlify vamos a buscar:
+
+Deploy settings
+
+Build & Deploy
+
+Environment
+
+Environment variables
+
+Add a variable Ó
+
+Edit variables
+
+Voy a crear una variable llamada "API" 
+
+Y le voy a asignar en netlify la dirección de mi API
+
+API = https://randomuser.me/api/
+
+3- Finalmente voy a sumar en script de package.json la orden de que antes de ejecutar el webpack production ejecute este script que acabamos de construir y llamar como create-env.js
+
+Quedaría así:  
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./scripts/create-env.js && webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.dev.js",
+    "build:watch": "webpack --watch --config webpack.config.dev.js"
+  },
+
+  Actualizamos nuestro repo y automaticamente el deploy con los updates se corre. 
+
+  Luego revisamos que no haya errores en nuestro deploy log y vemos la preview del site deployado... 
+
