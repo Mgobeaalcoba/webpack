@@ -1,0 +1,43 @@
+Nos permite tener un servidor de entorno local que va a facilitar ver nuestras modificaciones en tiempo real. 
+
+En consola: 
+
+12:08:27 👽 with 🤖 mgobea 🐶 in js-portfolio is 📦 1.0.0 via ⬢ v18.12.1 …
+➜ npm install webpack-dev-server -D
+
+added 167 packages, and audited 635 packages in 40s
+
+69 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+En archivo de config.webpack.dev.js agrego al final: 
+
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'dist'),
+            watch: true
+        },
+        watchFiles: path.join(__dirname, "./**"), 
+        compress: true,
+        historyApiFallback: true,
+        port: 3006,
+        open: true, 
+    },
+
+Finalmente agrego un nuevo script a mi package.json y luego ejecuto en consola el script: 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./scripts/create-env.js && webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.dev.js",
+    "build:watch": "webpack --watch --config webpack.config.dev.js",
+    "start": "webpack serve --config webpack.config.dev.js"
+  },
+
+  En consola: 
+
+  npm run start
+
+  Algo importante si trabajan con dos notebooks distitnas, como en mi caso es que recuerden armar en ambas notebooks el archivo .env con la variable de entorno de la API ya que si no nunca cargará. Gracias!!!
