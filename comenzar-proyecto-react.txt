@@ -117,6 +117,189 @@ module.exports = {
 
 4- Ejecuto entonces primero npm run start
 
+--------------------------------------------------------------------------------
+
+Ahora voy a comenzar a trabajar en el estilizado de mi proyecto con css. Para eso necesito los plugins de webpack para trabajar con CSS: 
+
+1- Instalo en consola los plugins necesarios: 
+
+λ npm install mini-css-extract-plugin css-loader styles-loader sass sass-loader -D
+
+2- Armo la configuración en webpack.config.js para poder trabajar con estas extensiones: 
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
+    mode: 'development',
+    resolve: {
+        extensions: ['.js','.jsx']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    { loader: 'html-loader' }
+                ]
+            },
+            {
+                test: /\.s[ac]ss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
+    ],
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'dist'),
+            watch: true
+        },
+        watchFiles: path.join(__dirname, "./**"), 
+        compress: true,
+        historyApiFallback: true,
+        port: 3006,
+        open: true, 
+    },
+}
+
+3- Armo dentro de src una carpeta llamada styles y dentro de ella creo un .css o un .scss que es la extensión que usa sass para sus archivos de estilo. 
+
+4- Integramos nuestra configuración de estilos creada en nuestro archivo .scss a nuestro index.js. Quedaría así: 
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+import './styles/global.scss';
+
+ReactDOM.render(<App />, document.getElementById('app'));
+
+5- Corremos nuevamente npm run start para visualizar como viene quedando nuestro sitio con estilos ya cargados en el mismo.  
+
+-------------------------------------------------------------------------------
+
+Optimización con webpack antes de enviar a producción: 
+
+1- Instalo las dependencias que voy a necesitas: 
+
+λ npm install css-minimizer-webpack-plugin terser-webpack-plugin clean-webpack-plugin -D
+
+2- Armo un nuevo archivo de webpack.config.dev.js para plantear mi config especifica para el modo dev. 
+
+3- Limpio de los plugin y dependencias como devServer a mi config general que ahora será para el modo productive
+
+4- Agrego a mi config de production (o sea la general) los nuevos plugins/dependencias instalados en el paso 1:
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { cleanWebpackPlugin, CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: "/",
+    },
+    mode: 'production',
+    resolve: {
+        extensions: ['.js','.jsx'],
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components/'),
+            '@styles': path.resolver(__dirname, 'src/styles/')
+        }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    { loader: 'html-loader' }
+                ]
+            },
+            {
+                test: /\.s[ac]ss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        }),
+        new CleanWebpackPlugin(),
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin(),
+        ]
+    }
+}
+
+Las configuraciones están hechas. Solo falta enviarlo a producción. Eso lo vamos a hacer con netlify:
+
+----------------------------------------------------------------------------------
+
+Deployando el sitio con Netlify: 
+
+1- Me logueo en Netlify
+
+2- Envio todas las novedades de mi proyecto a mi repo que tengo conectado con Netlify.
+
+3- Lo selecciono para deployar
+
+
+
+
+
+
+
+
 
 
 
