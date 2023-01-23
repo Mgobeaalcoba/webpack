@@ -1,0 +1,66 @@
+Me ayuda a comprender que elementos contituyen mi proyecto y así como cuales están siendo particularmente grandes en el mismo. 
+
+Consola: 
+
+C:\Users\mgobea\Documents\develop\JavaScript\curso-webpack(main -> origin) (curso-webpack@1.0.0)
+λ npm install webpack-bundle-analyzer -D
+
+added 17 packages, and audited 135 packages in 7s
+
+18 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+en webpack.config.dev.js luego hay que poner:
+
+1- Agrego const
+
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
+
+2- Cargo el plugin entre los plugins que ya tenía agregados: 
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css'
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src", "assets/images"),
+                    to: "assets/images"
+                }
+            ]
+        }),
+        new Dotenv(),
+        new BundleAnalyzerPlugin(),
+    ],
+
+echo esto para realizar el análisis debo correr en consola: 
+
+npx webpack --profile --json > stats.json 
+
+ó bien guardar ese comando como un script para luego correrlo con 
+
+npm run "nombre del script"
+
+Finalmente debo correr el comando en consola: 
+
+npx webpack-bundle-analyzer stats.json para que me abra mi archivo en un navegador web
+
+A este comando tambien lo puedo guardar como script en mi package.json. Yo los guarde así (ultimos dos):
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./scripts/create-env.js && webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.dev.js",
+    "build:watch": "webpack --watch --config webpack.config.dev.js",
+    "start": "webpack serve --config webpack.config.dev.js",
+    "do:stats": "npx webpack --profile --json > stats.json",
+    "view:stats": "npx webpack-bundle-analyzer stats.json"
+  },

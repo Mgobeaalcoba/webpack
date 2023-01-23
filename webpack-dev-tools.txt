@@ -1,0 +1,33 @@
+Arma un mapa de nuestro proyecto para que podamos comprender mejor cada una de las particularidades de nuestro proyecto. 
+
+Primero debo activar las devtool en mi webpack.config.dev.js así: 
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[contenthash].js',
+        assetModuleFilename: 'assets/images/[hash][ext][query]'
+    },
+    mode: 'development',
+    //watch: false,
+    devtool: 'source-map',
+    ...
+
+Hay que modificar la forma en la que llamamos al Bundle en la clase de webpack-bundle-analyzer:
+
+De esta forma: 
+
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
+
+La comentamos y lo recargamos así:
+
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+Luego compilamos en modo dev con el siguiente comando en consola: 
+
+npm run dev 
+
+Luego puedo ver piezas de codigo en particular de nuestro codigo de desarrollo haciendo click en la linea que nos interesa. Nos traerá la linea y sus dependencias dentro del codigo en una nueva solapa. 
+
+Esto se observa desde el modulo de inspección del navegador en la sección de source
