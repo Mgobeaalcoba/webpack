@@ -1,0 +1,123 @@
+con todo lo que aprendimos hastá acá de webpack ya podemos comenzar un proyecto react desde cero:
+
+Veamos como: 
+
+1- Creo (o importo en este caso) mi estructura base de proyecto: .gitignore, LICENSE and README.md
+
+2- Instalar las dependencias que nos van a ayudar a construir este proyecto: 
+A- npm install react react-dom -S (React y React-dom como dependencias productivas, no de desarrollo por eso el -S)
+B- npm init -y (Para inicializar mi proyecto con un formato default que luego puedo modificar en mi archivo package.json)
+
+3- Voy a crear la estructura de mi proyecto luego:
+A- Carpeta src: mkdir src
+B- Creo dentro de src mi file index.js (touch index.js)
+C- Creo mi carpeta de components dentro de src (mkdir components)
+D- Creo dentro de components mi archivo de App.jsx (HTML dentro de React) (touch App.jsx)
+E- Creo en la raiz del proyecto la carpeta public (mkdir public) y dentro de ella mi index.html (touch index.html)
+
+4- Vamos a armar la estructura minima para que tengamos una aplicación ahroa: 
+A- En index.js armó la config (ver file)
+B- En index.html armó la estructura simple (shorcut !) y dentro del body solo creo un div
+C- En el componente App.jsx tenemos que hacer un import de react y configurar el mismo (ver file en proyecto curso-webpack-react)
+
+Con esto ya tenemos una estructura base de React lista. Ahora vamos a compilarlo con Webpack y a optimizarlo con la misma herramienta. 
+
+---------------------------------------------------------------------------------
+
+Vamos a configurar webpack y babel para el proyecto: file
+
+1- Instalamos babel y sus componenetes relacionados: 
+
+λ npm install @babel/core @babel/preset-env @babel/preset-react babel-loader -D
+
+2- Creo en el proyecto mi configuración de babel:
+A- En la raiz armo mi archivo .babelrc 
+B- Y lo configuro con los presets que voy a usar: 
+
+{
+    "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+    ]
+}
+
+3- Instalamos todas las dependencias de webpack que vamos a utilizar para el proyecto: 
+
+λ npm install webpack webpack-cli webpack-dev-server -D
+
+4- Creamos nuestro archivo de configuración de webpack llamado "webpack.config.js" en la raiz del proyecto.  
+
+5- Armamos la configuración del file de config. Es casi siempre muy similar. La estructura es siempre la misma y podemos ver un ejemplo amplio en el proyecto de js-portfolio y uno especifico para React en curso-webpack-react
+
+----------------------------------------------------------------------------------
+
+Ahora necesitamos instalar los plugins y loaders necesarios para trabajar con React. Veamos como: 
+
+1- Instalo en consola: 
+
+λ npm install html-loader html-webpack-plugin -D
+
+2- Preparo mi archivo de webpack.config.js con la configuración necesaria para usar mis nuevas extensiones descargadas así: 
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        path: path.relative(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
+    resolve: {
+        extensions: ['.js','.jsx']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    { loader: 'html-loader' }
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: './index.html'
+        })
+    ],
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'dist'),
+            watch: true
+        },
+        watchFiles: path.join(__dirname, "./**"), 
+        compress: true,
+        historyApiFallback: true,
+        port: 3006,
+        open: true, 
+    },
+}
+
+3- Creo en mi archivo de package.json mi script para poder correr toda esta configuración que hemos realizado para una compilación en modo production. Así: 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve",
+    "build": "webpack --mode production"
+  },
+
+4- Ejecuto entonces primero npm run start
+
+
+
+
+
